@@ -89,8 +89,92 @@ func f3() {
 	fmt.Println("jsonStr", string(jsonStr))
 }
 
+// Golang中的方法是作用在指定的数据类型上的（和指定的数据类型绑定）
+
+type art struct{
+	Num int
+}
+
+// func(revevier type) methodName(参数列表) (返回值列表){
+//     方法体 
+//     return 返回值
+// }
+
+type person struct{
+	Name string
+}
+
+func(p person)test(){
+	fmt.Println("test() name=",p.Name)
+}
+func (a art)test()  {
+	// 表示A结构体有一方法
+	fmt.Println(a.Num)
+}
+
+// 方法的注意事项和细节
+// 如果程序员希望在方法中，修改结构体变量的值，可以通过结构体指针的方式来处理
+type circle struct{
+	radius float64
+}
+
+func(c *circle)area() float64{
+	c.radius = 10
+	area := 3.14*c.radius*c.radius
+	return area
+}
+
+// Golang中的方法作用在指定的数据类型上。不仅仅struct，比如int，float32都可以
+type integer int
+func(i integer) print(){
+	fmt.Println("i=",i)
+}
+
+//方法的访问范围控制规则和函数一样。首字母小写，本包访问，首字母大写，程序访问
+
+//如果一个类型实现了String()这个方法，那么fmt.Println默认会调用这个变量的String()进行输出
+
+//Student 学生
+type Student struct{
+	Name string
+	Age int
+}
+
+func (stu *Student) String() string{
+	str := fmt.Sprintf("Name=[%v] age=[%v]",stu.Name,stu.Age)
+	return str
+}
+
+// 创建结构体变量时指定字段值
+
+// Stu 又是学生
+type Stu struct{
+	Name string
+	Age int
+}
+
+var stu1 = Stu{"小明",19}
+
+// stu2 和 stu4 stu6不行?
+// stu2 := Stu{"小明~",20}
+
+var stu3 = Stu{
+    Name :"jack",
+    Age : 20,
+}
+/*
+stu4 := Stu{
+    Age : 30,
+    Name :"mary"
+}
+*/
+
+var stu5 *Stu = &Stu{"小王",13}
+// stu6 := &Stu{"小孙",14}
+
 func main() {
 	fmt.Println("hello")
 	fmt.Println("----------")
-	f3()
+	// f3()
+	
 }
