@@ -24,6 +24,8 @@ func(t 自定义类型) method2(参数列表)返回值列表{
 2.不需要显示的实现。没有implement关键字，只需要一个变量，含有接口中所有方法，那么这个变量就实现了这个接口
 */
 
+// 实现多态
+
 // USB haha
 type USB interface {
 	Start()
