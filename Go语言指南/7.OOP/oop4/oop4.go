@@ -34,6 +34,7 @@ type USB interface {
 
 // Phone haha
 type Phone struct {
+	name string
 }
 
 // Start 实现usb接口方法
@@ -48,6 +49,7 @@ func (p Phone) Stop() {
 
 // Camera haha
 type Camera struct {
+	name string
 }
 
 // Start 实现usb接口方法
@@ -71,6 +73,9 @@ func (co Computer) Working(usb USB) {
 }
 
 func main() {
+	// Golang多态
+	// 变量（实例）具有多种形态，面向对象的三大特征，在Go语言中，多态是通过接口实现的。
+	// 可以按照统一的接口来调用不同的实现，这时接口变量就呈现不同的形态
 	fmt.Println("haha")
 
 	fmt.Println("----------------")
@@ -82,4 +87,14 @@ func main() {
 	computer.Working(phone)
 	computer.Working(camera)
 
+	fmt.Println("----------------")
+
+	var usbArr [3]USB
+
+	usbArr[0] = Phone{"vivo"}
+	usbArr[1] = Phone{"xiaomi"}
+	usbArr[2] = Camera{"索尼"}
+	// [{vivo} {xiaomi} {索尼}]
+
+	fmt.Println(usbArr)
 }
