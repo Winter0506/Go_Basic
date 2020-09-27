@@ -100,6 +100,34 @@ func unmarshalStruct() {
 	fmt.Printf("monster反序列化后 monster=%v monster.Name=%v\n", monster, monster.Name)
 }
 
+// 反序列化map
+func unmarshalMap(){
+	//直接写的str是需要转义的，如果是程序获得的，不需要转义，内部已经转义
+	str := "{\"adddress\":\"洪崖洞\",\"age\":30,\"name\":\"红孩儿\"}"
+	var a map[string]interface{}
+	// 注意:反序列化map,不需要make make操作被封装到Unmarshal函数中
+	err := json.Unmarshal([]byte(str),&a)
+	if err != nil {
+		fmt.Printf("反序列化错误 err=%v\n", err)
+	}
+	fmt.Printf("map反序列化后 a=%v \n", a)
+	// map反序列化后 a=map[adddress:洪崖洞 age:30 name:红孩儿] 
+
+}
+
+// 反序列化切片
+func unmarshalSlice(){
+	str := "[{\"address\":\"北京\",\"age\":\"7\",\"name\":\"jack\"},{\"address\":[\"墨西哥\",\"夏威夷\"],\"age\":\"20\",\"name\":\"tom\"}]"
+
+	var slice []map[string]interface{}
+
+	err := json.Unmarshal([]byte(str),&slice)
+	if err != nil {
+		fmt.Printf("反序列化错误 err=%v\n", err)
+	}
+	fmt.Printf("反序列化后 slice=%v \n", slice)
+}
+
 func main() {
 	testStruct()
 	fmt.Println("------------")
@@ -108,5 +136,8 @@ func main() {
 	testSlice()
 	fmt.Println("------------")
 	unmarshalStruct()
-
+	fmt.Println("-------------")
+	unmarshalMap()
+	fmt.Println("-------------")
+	unmarshalSlice()
 }
